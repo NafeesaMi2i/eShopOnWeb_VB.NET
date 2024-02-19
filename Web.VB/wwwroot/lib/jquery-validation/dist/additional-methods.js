@@ -138,6 +138,10 @@ $.validator.addMethod( "bankorgiroaccountNL", function( value, element ) {
  * - Last 3 characters - branch code, optional (shall not start with 'X' except in case of 'XXX' for primary office) (letters and digits)
  */
 $.validator.addMethod( "bic", function( value, element ) {
+    // The first 6 characters represent the bank code and must be letters
+    // The following character must be a letter or a number but not '0' or '1'
+    // The next character must be a letter (excluding 'O') or a digit ('1' for passive participants)
+    // The optional last 3 characters represent the branch code, where 'XXX' is used for the primary office
     return this.optional( element ) || /^([A-Z]{6}[A-Z2-9][A-NP-Z1-9])(X{3}|[A-WY-Z0-9][A-Z0-9]{2})?$/.test( value.toUpperCase() );
 }, "Please specify a valid BIC code" );
 
